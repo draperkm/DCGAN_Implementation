@@ -196,9 +196,7 @@ Please not that even if using the real labels as the ground truth might seems co
 
 PyTorch offer a very flexible framework to build networks with. Building neural networks involves building a class where to define the `layers` of the model and the `forward()` method, that defines the way that the input is passed from each layer from the input to the output stage. PyTorch offers many different layers, such as Linear for fully connected layers, Conv2d for convolutional layers, Recurrent Layers for Recurrent neural networks (or RNNs), and other layers such as Normalization layers , Dropout layers and MaxPooling layers. Also many Activation functions are available such as ReLU, Softmax, and Sigmoid.
 
-Please refer to this notebook to understand more deeply what building a model in PyTorch involves: 
-
-https://github.com/draperkm/Frameworks_notes/blob/main/Building_Models.ipynb
+Please refer to this notebook to understand more deeply what building a model in PyTorch involves: https://github.com/draperkm/Frameworks_notes/blob/main/Building_Models.ipynb
 
 
 ## Preprocessing data: Printing Tensors as an image
