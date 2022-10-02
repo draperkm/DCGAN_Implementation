@@ -97,19 +97,20 @@ Implementing a GAN is more an art than a science and [here](https://github.com/s
 
 Implementing the DCGAN will require to follow this steps:
 
-- Import Libraries and initialise hyperparameters
+- Import Libraries 
+- Initialise hyperparameters
 - Load and Preprocess the Data
-- Create a dataloader (batches of training data)
-- Define Weights intitializer
+- Create the dataloader
+- Initialise weights
 
 - **Build Generator's networks**
 - **Build Discriminator's network**
-- **Define Loss function and set the optimizers for both networks**
-- **Define training**
+- **Define the Loss function and the Optimizer**
+- **Define training loop**
 
-- Train DCGAN
+- Training the network
 
-- Results: Generate Synthetic Images with DCGAN
+- Results: Generating Synthetic Images
 
 Let us now take a look at the details of the steps that are the most relevant.
 
