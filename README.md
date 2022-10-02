@@ -2,15 +2,15 @@
 
 # Generative Adversarial Networks (GANs)
 
+
+![gans1](https://user-images.githubusercontent.com/80494835/189524622-1c975c2c-7e13-4be4-8944-edf9f334a030.jpg)
+
 These netwroks are composed by a pair of:
 
 - Generator: the goal of the generator is to output an image of the same size of the training images (in this case 3x64x64). "This is accomplished through a series of strided two dimensional convolutional transpose layers", each paired with a 2d batch norm layer and a relu activation.
 
 
 - Discriminator: "is a binary classification network that takes an image as input and outputs a scalar probability that the input image is real (as opposed to fake). Here, DD takes a 3x64x64 input image, processes it through a series of Conv2d, BatchNorm2d, and LeakyReLU layers, and outputs the final probability through a Sigmoid activation function. The DCGAN paper mentions it is a good practice to use strided convolution rather than pooling to downsample because it lets the network learn its own pooling function. Also batch norm and leaky relu functions promote healthy gradient flow which is critical for the learning process of both GG and DD."
-
-
-![gans1](https://user-images.githubusercontent.com/80494835/189524622-1c975c2c-7e13-4be4-8944-edf9f334a030.jpg)
 
 "We pass random seeds into the generator and it outputs images. These images are passed to the Discriminator during new rounds of traning as the fake images. When training the Discriminator we will pass in images from the traning set (real) and images from the generator (fake) and the role of the discriminator will be to correctly and confidently differentiate between the real and fake images"_ [cite1](https://nabeelvalley.co.za/docs/data-science-with-python/image-classification-with-keras/)
 
