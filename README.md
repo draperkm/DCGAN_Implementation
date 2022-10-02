@@ -201,7 +201,7 @@ Please refer to this notebook to understand more deeply what building a model in
 https://github.com/draperkm/Frameworks_notes/blob/main/Building_Models.ipynb
 
 
-## Visualizing Tensors as an Images
+## Visualizing Tensors as RGB Images
 
 When working with PyTorch, we are in reality dealing with Tensors (Arrays) data structures, and treating them is not always as straightforward as it might seems. You can visit the following link to see how I treated this problem: 
 
