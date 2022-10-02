@@ -186,7 +186,7 @@ Finally we can pass the gradients to the optimizer to calculate the updating ste
 
 ### Training the Generator
 
-Training the Generator in the original algorithm is obtained by minimising the cost of $ \log(1-D(G(z)))$ while in the DCGAN paper we will instead maximise the cost of $$\log (D(G(z)))$$ using real labels as the ground truth. The update of the weights will happen after that the batch of fake images generated in the previous step are classified by the discriminator, the loss of G is computed, and the gradient of G is calculated with a backward pass.
+Training the Generator in the original algorithm is obtained by minimising the cost of $$ \log(1-D(G(z)))$$ while in the DCGAN paper we will instead maximise the cost of $$\log (D(G(z)))$$ using real labels as the ground truth. The update of the weights will happen after that the batch of fake images generated in the previous step are classified by the discriminator, the loss of G is computed, and the gradient of G is calculated with a backward pass.
 
 Please not that even if using the real labels as the ground truth might seems counter intuitive, it allows us to use the $\log(x)$ part of the BCE instead of the $\log(1-x)$ part.
 
