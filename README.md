@@ -186,38 +186,11 @@ Finally we can pass the gradients to the optimizer to calculate the updating ste
 
 ### Training the Generator
 
-Training the Generator in the original algorithm is obtained by minimising the cost of $$ \log(1-D(G(z)))$$ while in the DCGAN paper we will instead maximise the cost of $$\log (D(G(z)))$$ using real labels as the ground truth. The update of the weights will happen after that the batch of fake images generated in the previous step are classified by the discriminator, the loss of G is computed, and the gradient of G is calculated with a backward pass.
+Training the Generator in the original algorithm is obtained by minimising the cost of $$\log(1-D(G(z)))$$ while in the DCGAN paper we will instead maximise the cost of $$\log (D(G(z)))$$ using real labels as the ground truth. The update of the weights will happen after that the batch of fake images generated in the previous step are classified by the discriminator, the loss of G is computed, and the gradient of G is calculated with a backward pass.
 
 Please not that even if using the real labels as the ground truth might seems counter intuitive, it allows us to use the $\log(x)$ part of the BCE instead of the $\log(1-x)$ part.
 
 # Challenges
-
-## DataLoader num_workers - Generating data in parallel with PyTorch
-
-1- https://stanford.edu/~shervine/blog/pytorch-how-to-generate-data-parallel
-
-2-https://discuss.pytorch.org/t/guidelines-for-assigning-num-workers-to-dataloader/813/7
-
-"Are you sure that memory usage is the most serious overhead ? What about IO usage ?
-Setting too many workers might cause seriously high IO usage which can become very uneffective.
-
-I would love to get your advice about the recommended way to deal with my data - I feed my CNN with large batches (256/512/1024…) of small patches of size 50x50. I intend to use the ImageFolder DataLoader for that, but I’m afraid that it would be very uneffective to load from disk a lot of small images in high frequency."
-
-"if the data set is small like cifar10, why doesn’t the whole data set stay in the GPU the whole time? Why would # workers do anything?"
-
-"The more data you put into the GPU memory, the less memory is available for the model.
-If your model and data is small, it shouldn’t be a problem. Otherwise I would rather use the DataLoader to load and push the samples onto the GPU than to make my model smaller."
-
-## Choosing Mini-Batches 
-
-https://stats.stackexchange.com/questions/153531/what-is-batch-size-in-neural-network
-
-"The question has been asked a while ago but I think people are still tumbling across it. For me it helped to know about the mathematical background to understand batching and where the advantages/disadvantages mentioned in itdxer's answer come from. So please take this as a complementary explanation to the accepted answer.
-
-Consider Gradient Descent as an optimization algorithm to minimize your Loss function 𝐽(𝜃). The updating step in Gradient Descent is given by
-$$\theta_{k+1} = \theta_{k} - \alpha \nabla J(\theta)$$
-
-"
 
 ## Building a model in PyTorch
 
