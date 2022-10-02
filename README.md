@@ -199,11 +199,9 @@ PyTorch offer a very flexible framework to build networks with. Building neural 
 Please refer to this notebook to understand more deeply what building a model in PyTorch involves: https://github.com/draperkm/Frameworks_notes/blob/main/Building_Models.ipynb
 
 
-## Preprocessing data: Printing Tensors as an image
+## Visualizing Tensors as an Images
 
-Printing RGB images requires tensors to be clipped between 0 and 1 if float values or betweeen 0 and 255 if integers.
-
-https://pytorch.org/tutorials/beginner/introyt/tensors_deeper_tutorial.html
+When working with PyTorch, we are in reality dealing with Tensors (Arrays) data structures, and treating them is not always as straightforward as it might seems. You can visit the following link to see how I treated this problem: https://pytorch.org/tutorials/beginner/introyt/tensors_deeper_tutorial.html
 
 
 # Experiments and results
