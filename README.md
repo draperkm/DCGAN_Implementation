@@ -201,7 +201,7 @@ Please refer to this notebook to understand more deeply what building a model in
 
 ## Visualizing Tensors as an Images
 
-When working with PyTorch, we are in reality dealing with Tensors (Arrays) data structures, and treating them is not always as straightforward as it might seems. You can visit the following link to see how I treated this problem: https://pytorch.org/tutorials/beginner/introyt/tensors_deeper_tutorial.html
+When working with PyTorch, we are in reality dealing with Tensors (Arrays) data structures, and treating them is not always as straightforward as it might seems. You can visit the following link to see how I treated this problem: https://github.com/draperkm/Frameworks_notes/blob/main/Visualising_Tensors_PyTorch.ipynb
 
 
 # Experiments and results
