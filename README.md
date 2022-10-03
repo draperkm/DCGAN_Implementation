@@ -8,24 +8,16 @@ Generative Adversarial Networks (GANs) are models capable of generating specific
 
 <img width="954" alt="Screenshot 2022-08-30 at 12 58 46" src="https://user-images.githubusercontent.com/80494835/193601253-451f0709-ffed-4bd5-8773-650dd708b7b2.png">
 
+The goal is to train the Generator and the Discriminator jointly in a adversarial training \cite{https://doi.org/10.48550/arxiv.1406.2661}:
 
-These netwroks are composed by a pair of:
+$$
+    \min_{\theta_g} \max_{\theta_d} [E_{x \sim p_{data}} \log D_{\theta_d}(x)+E_{z \sim p_{z}}\log (1-D_{\theta_d}(G_{\theta_d}(z)))]
+$$
 
-- Generator: the goal of the generator is to output an image of the same size of the training images (in this case 3x64x64). "This is accomplished through a series of strided two dimensional convolutional transpose layers", each paired with a 2d batch norm layer and a relu activation.
+The term $D_{\theta_d}(x)$ represents the discriminator output for real data, while $D_{\theta_d}(G_{\theta_d}(z)))$ the discriminator output for fake data $G(z)$s. The discriminator $\theta_d$ wants to maximise the objective function such that $D_{\theta_d}(x)$ is close to 1 (real) and $D_{\theta_d}(G_{\theta_d}(z)))$ is close to 0 (fake). At the opposite, the generator ($\theta_g$) wants to minimise the objective function such that $D_{\theta_d}(G_{\theta_d}(z)))$ is close to 1.
 
 
-- Discriminator: "is a binary classification network that takes an image as input and outputs a scalar probability that the input image is real (as opposed to fake). Here, DD takes a 3x64x64 input image, processes it through a series of Conv2d, BatchNorm2d, and LeakyReLU layers, and outputs the final probability through a Sigmoid activation function. The DCGAN paper mentions it is a good practice to use strided convolution rather than pooling to downsample because it lets the network learn its own pooling function. Also batch norm and leaky relu functions promote healthy gradient flow which is critical for the learning process of both GG and DD."
-
-"We pass random seeds into the generator and it outputs images. These images are passed to the Discriminator during new rounds of traning as the fake images. When training the Discriminator we will pass in images from the traning set (real) and images from the generator (fake) and the role of the discriminator will be to correctly and confidently differentiate between the real and fake images"_ [cite1](https://nabeelvalley.co.za/docs/data-science-with-python/image-classification-with-keras/)
-
-## Cost function in the original GAN
-
-$$ J(\theta) = - \frac{1}{m} \sum_{i=1}^m [y^{(i)} \log h(x^{(i)}, \theta) + (1-y^{(i)}) \log (1 - h(x^{(i)}, \theta)) ] $$
-
-where $J(\theta)$ is the avarage cost for a given set of parameters, m is the batch size, $y^{(i)}$ is the label of example i and $h(x^{(i)}, \theta)$ is the prediction given by the model for the example $x^{(i)}$. In this case the prediction is made from the discriminator???.
-So this this function can be seen as two main terms: the first one is a function that when the prediction is close to the real one the loss is close to zero, while when the prediction is far from the true lable the loss approaches infinity. The second term does the opposite thing. Source: https://www.coursera.org/learn/build-basic-generative-adversarial-networks-gans/lecture/2bF5q/bce-cost-function
-
-## Original GAN training algorithm
+## Implementation strategy: Original GAN training algorithm
 
 To train a GAN we should follow this steps, taken from the original 2014 paper by Goodfellow, et al. "[Generative Adversarial Networks](https://arxiv.org/pdf/1406.2661.pdf)".
 
@@ -62,6 +54,16 @@ We can observe that the training loop uses two version of th ebinary cross entro
      
 
 ## Types of different GANs and DCGANs
+
+These netwroks are composed by a pair of:
+
+- Generator: the goal of the generator is to output an image of the same size of the training images (in this case 3x64x64). "This is accomplished through a series of strided two dimensional convolutional transpose layers", each paired with a 2d batch norm layer and a relu activation.
+
+
+- Discriminator: "is a binary classification network that takes an image as input and outputs a scalar probability that the input image is real (as opposed to fake). Here, DD takes a 3x64x64 input image, processes it through a series of Conv2d, BatchNorm2d, and LeakyReLU layers, and outputs the final probability through a Sigmoid activation function. The DCGAN paper mentions it is a good practice to use strided convolution rather than pooling to downsample because it lets the network learn its own pooling function. Also batch norm and leaky relu functions promote healthy gradient flow which is critical for the learning process of both GG and DD."
+
+"We pass random seeds into the generator and it outputs images. These images are passed to the Discriminator during new rounds of traning as the fake images. When training the Discriminator we will pass in images from the traning set (real) and images from the generator (fake) and the role of the discriminator will be to correctly and confidently differentiate between the real and fake images"_ [cite1](https://nabeelvalley.co.za/docs/data-science-with-python/image-classification-with-keras/)
+
 
 https://towardsdatascience.com/gan-objective-functions-gans-and-their-variations-ad77340bce3c
  
