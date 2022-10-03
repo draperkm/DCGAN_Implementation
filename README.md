@@ -5,7 +5,8 @@
 Generative Adversarial Networks (GANs) are models capable of generating specific outputs after being fed with a random noise vector. They are trained via an `adversarial process` formulated by Ian Goodfellow in the paper [Generative Adversarial Networks](https://arxiv.org/abs/1406.2661). They are composed by a generative network that creates a distribution similar to the training distribution, and a discriminative network that tries to distinguish between real training examples and fake training examples. The adversarial process is an "implicit" method, as the network improves its performances by generating more "realistic" inputs. The training involves two "players": a Generator and a Discriminator. The Generator receives as input a simple distribution, and produces an output that is the sampling from that input distribution. A subsequent Discriminator will judge if the sample distribution is similar to the real data distribution. If not the generator will produce a second output that tries to reduce the difference with the real data.
 
 
-<img width="946" alt="GANs" src="https://user-images.githubusercontent.com/80494835/193600798-17708a98-f555-4f2f-8e32-06aa57abd118.png">
+
+<img width="954" alt="Screenshot 2022-08-30 at 12 58 46" src="https://user-images.githubusercontent.com/80494835/193601253-451f0709-ffed-4bd5-8773-650dd708b7b2.png">
 
 
 These netwroks are composed by a pair of:
