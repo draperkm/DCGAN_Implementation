@@ -2,26 +2,22 @@
 
 # Generative Adversarial Networks (GANs)
 
-These netwroks are composed by a pair of:
-
-- Generator: the goal of the generator is to output an image of the same size of the training images (in this case 3x64x64). "This is accomplished through a series of strided two dimensional convolutional transpose layers", each paired with a 2d batch norm layer and a relu activation.
+Generative Adversarial Networks (GANs) are models capable of generating specific outputs after being fed with a random noise vector. They are trained via an `adversarial process` formulated by Ian Goodfellow in the paper [Generative Adversarial Networks](https://arxiv.org/abs/1406.2661). They are composed by a generative network that creates a distribution similar to the training distribution, and a discriminative network that tries to distinguish between real training examples and fake training examples. The adversarial process is an "implicit" method, as the network improves its performances by generating more "realistic" inputs. The training involves two "players": a Generator and a Discriminator. The Generator receives as input a simple distribution, and produces an output that is the sampling from that input distribution. A subsequent Discriminator will judge if the sample distribution is similar to the real data distribution. If not the generator will produce a second output that tries to reduce the difference with the real data.
 
 
-- Discriminator: "is a binary classification network that takes an image as input and outputs a scalar probability that the input image is real (as opposed to fake). Here, DD takes a 3x64x64 input image, processes it through a series of Conv2d, BatchNorm2d, and LeakyReLU layers, and outputs the final probability through a Sigmoid activation function. The DCGAN paper mentions it is a good practice to use strided convolution rather than pooling to downsample because it lets the network learn its own pooling function. Also batch norm and leaky relu functions promote healthy gradient flow which is critical for the learning process of both GG and DD."
+
+<img width="954" alt="Screenshot 2022-08-30 at 12 58 46" src="https://user-images.githubusercontent.com/80494835/193601253-451f0709-ffed-4bd5-8773-650dd708b7b2.png">
+
+The goal is to train the Generator and the Discriminator jointly in a adversarial training:
+
+$$
+    \min_{\theta_g} \max_{\theta_d} [E_{x \sim p_{data}} \log D_{\theta_d}(x)+E_{z \sim p_{z}}\log (1-D_{\theta_d}(G_{\theta_d}(z)))]
+$$
+
+The term $D_{\theta_d}(x)$ represents the discriminator output for real data, while $D_{\theta_d}(G_{\theta_d}(z)))$ the discriminator output for fake data $G(z)$s. The discriminator $\theta_d$ wants to maximise the objective function such that $D_{\theta_d}(x)$ is close to 1 (real) and $D_{\theta_d}(G_{\theta_d}(z)))$ is close to 0 (fake). At the opposite, the generator $G_{\theta_g}$ wants to minimise the objective function such that $D_{\theta_d}(G_{\theta_d}(z)))$ is close to 1.
 
 
-![gans1](https://user-images.githubusercontent.com/80494835/189524622-1c975c2c-7e13-4be4-8944-edf9f334a030.jpg)
-
-"We pass random seeds into the generator and it outputs images. These images are passed to the Discriminator during new rounds of traning as the fake images. When training the Discriminator we will pass in images from the traning set (real) and images from the generator (fake) and the role of the discriminator will be to correctly and confidently differentiate between the real and fake images"_ [cite1](https://nabeelvalley.co.za/docs/data-science-with-python/image-classification-with-keras/)
-
-## Cost function in the original GAN
-
-$$ J(\theta) = - \frac{1}{m} \sum_{i=1}^m [y^{(i)} \log h(x^{(i)}, \theta) + (1-y^{(i)}) \log (1 - h(x^{(i)}, \theta)) ] $$
-
-where $J(\theta)$ is the avarage cost for a given set of parameters, m is the batch size, $y^{(i)}$ is the label of example i and $h(x^{(i)}, \theta)$ is the prediction given by the model for the example $x^{(i)}$. In this case the prediction is made from the discriminator???.
-So this this function can be seen as two main terms: the first one is a function that when the prediction is close to the real one the loss is close to zero, while when the prediction is far from the true lable the loss approaches infinity. The second term does the opposite thing. Source: https://www.coursera.org/learn/build-basic-generative-adversarial-networks-gans/lecture/2bF5q/bce-cost-function
-
-## Original GAN training algorithm
+## Implementation strategy: Original GAN training algorithm
 
 To train a GAN we should follow this steps, taken from the original 2014 paper by Goodfellow, et al. "[Generative Adversarial Networks](https://arxiv.org/pdf/1406.2661.pdf)".
 
@@ -56,10 +52,20 @@ end **for**
 
 We can observe that the training loop uses two version of th ebinary cross entropy and maximise the cost function to update the discriminator parameters, while it minimise the cost function when updating the generator's parameters.
      
-
-## Types of different GANs and DCGANs
+## Different types of GANs
 
 https://towardsdatascience.com/gan-objective-functions-gans-and-their-variations-ad77340bce3c
+
+# DCGANs
+
+DCGANs are composed by a pair of:
+
+- Generator: the goal of the generator is to output an image of the same size of the training images (in this case 3x64x64). "This is accomplished through a series of strided two dimensional convolutional transpose layers", each paired with a 2d batch norm layer and a relu activation.
+
+
+- Discriminator: "is a binary classification network that takes an image as input and outputs a scalar probability that the input image is real (as opposed to fake). Here, DD takes a 3x64x64 input image, processes it through a series of Conv2d, BatchNorm2d, and LeakyReLU layers, and outputs the final probability through a Sigmoid activation function. The DCGAN paper mentions it is a good practice to use strided convolution rather than pooling to downsample because it lets the network learn its own pooling function. Also batch norm and leaky relu functions promote healthy gradient flow which is critical for the learning process of both GG and DD."
+
+"We pass random seeds into the generator and it outputs images. These images are passed to the Discriminator during new rounds of traning as the fake images. When training the Discriminator we will pass in images from the traning set (real) and images from the generator (fake) and the role of the discriminator will be to correctly and confidently differentiate between the real and fake images"_ [cite1](https://nabeelvalley.co.za/docs/data-science-with-python/image-classification-with-keras/)
  
 # Implementing DCGAN:
 
@@ -97,19 +103,20 @@ Implementing a GAN is more an art than a science and [here](https://github.com/s
 
 Implementing the DCGAN will require to follow this steps:
 
-- Import Libraries and initialise hyperparameters
+- Import Libraries 
+- Initialise hyperparameters
 - Load and Preprocess the Data
-- Create a dataloader (batches of training data)
-- Define Weights intitializer
+- Create the dataloader
+- Initialise weights
 
 - **Build Generator's networks**
 - **Build Discriminator's network**
-- **Define Loss function and set the optimizers for both networks**
-- **Define training**
+- **Define the Loss function and the Optimizer**
+- **Define training loop**
 
-- Train DCGAN
+- Training the network
 
-- Results: Generate Synthetic Images with DCGAN
+- Results: Generating Synthetic Images
 
 Let us now take a look at the details of the steps that are the most relevant.
 
@@ -185,62 +192,40 @@ Finally we can pass the gradients to the optimizer to calculate the updating ste
 
 ### Training the Generator
 
-Training the Generator in the original algorithm is obtained by minimising the cost of $ \log(1-D(G(z)))$ while in the DCGAN paper we will instead maximise the cost of $$\log (D(G(z)))$$ using real labels as the ground truth. The update of the weights will happen after that the batch of fake images generated in the previous step are classified by the discriminator, the loss of G is computed, and the gradient of G is calculated with a backward pass.
+Training the Generator in the original algorithm is obtained by minimising the cost of $$\log(1-D(G(z)))$$ while in the DCGAN paper we will instead maximise the cost of $$\log (D(G(z)))$$ using real labels as the ground truth. The update of the weights will happen after that the batch of fake images generated in the previous step are classified by the discriminator, the loss of G is computed, and the gradient of G is calculated with a backward pass.
 
 Please not that even if using the real labels as the ground truth might seems counter intuitive, it allows us to use the $\log(x)$ part of the BCE instead of the $\log(1-x)$ part.
 
 # Challenges
 
-## DataLoader num_workers - Generating data in parallel with PyTorch
-
-1- https://stanford.edu/~shervine/blog/pytorch-how-to-generate-data-parallel
-
-2-https://discuss.pytorch.org/t/guidelines-for-assigning-num-workers-to-dataloader/813/7
-
-"Are you sure that memory usage is the most serious overhead ? What about IO usage ?
-Setting too many workers might cause seriously high IO usage which can become very uneffective.
-
-I would love to get your advice about the recommended way to deal with my data - I feed my CNN with large batches (256/512/1024…) of small patches of size 50x50. I intend to use the ImageFolder DataLoader for that, but I’m afraid that it would be very uneffective to load from disk a lot of small images in high frequency."
-
-"if the data set is small like cifar10, why doesn’t the whole data set stay in the GPU the whole time? Why would # workers do anything?"
-
-"The more data you put into the GPU memory, the less memory is available for the model.
-If your model and data is small, it shouldn’t be a problem. Otherwise I would rather use the DataLoader to load and push the samples onto the GPU than to make my model smaller."
-
-## Choosing Mini-Batches 
-
-https://stats.stackexchange.com/questions/153531/what-is-batch-size-in-neural-network
-
-"The question has been asked a while ago but I think people are still tumbling across it. For me it helped to know about the mathematical background to understand batching and where the advantages/disadvantages mentioned in itdxer's answer come from. So please take this as a complementary explanation to the accepted answer.
-
-Consider Gradient Descent as an optimization algorithm to minimize your Loss function 𝐽(𝜃). The updating step in Gradient Descent is given by
-$$\theta_{k+1} = \theta_{k} - \alpha \nabla J(\theta)$$
-
-"
-
 ## Building a model in PyTorch
 
-Defining a network in PyTorch might be a challenge. Please refer to this notebook to understand more deeply what building a model in PyTorch involves: 
+PyTorch offer a very flexible framework to build networks with. Building neural networks involves building a class where to define the `layers` of the model and the `forward()` method, that defines the way that the input is passed from each layer from the input to the output stage. PyTorch offers many different layers, such as Linear for fully connected layers, Conv2d for convolutional layers, Recurrent Layers for Recurrent neural networks (or RNNs), and other layers such as Normalization layers , Dropout layers and MaxPooling layers. Also many Activation functions are available such as ReLU, Softmax, and Sigmoid.
 
-(https://pytorch.org/tutorials/beginner/introyt/modelsyt_tutorial.html)
+Please refer to this notebook to understand more deeply what building a model in PyTorch involves: 
 
 https://github.com/draperkm/Frameworks_notes/blob/main/Building_Models.ipynb
 
 
-## Preprocessing data: Printing Tensors as an image
+## Visualizing Tensors as RGB Images
 
-Printing RGB images requires tensors to be clipped between 0 and 1 if float values or betweeen 0 and 255 if integers.
+When working with PyTorch, we are in reality dealing with Tensors (Arrays) data structures, and treating them is not always as straightforward as it might seems. You can visit the following link to see how I treated this problem: 
 
-https://pytorch.org/tutorials/beginner/introyt/tensors_deeper_tutorial.html
+https://github.com/draperkm/Frameworks_notes/blob/main/Visualising_Tensors_PyTorch.ipynb
 
 
 # Experiments and results
 
-"The program created next will generate faces similar to these. While these faces are not perfect, they demonstrate how we can construct and train a GAN on or own. Later we will see how to import very advanced weights from nVidia to produce high resolution, realistic looking faces." (Heaton)
+We have trained this DCGAN network for 10 - 30 - 60 epochs. The results that we can obtain from this implementation have plateaud after 30 epochs, as we can not notice significative differences between the two final results. 
 
-## Making DCGAN better: StyleGAN2
+## The original data set
 
-Other apporaches can be adopted to obtain better generated images. High resolution...
+## Results
+
+The program created next will generate faces similar to these:
+
+It is evident that this type of implementation can allow us to reach only a certain level of quality in the generated images, but we demonstrated how it is possible to build and train a GAN on a simple laptop Machine with the help of Google Colab. To produce images of a higher quality (and resolution) we will have to take a look at different GAN implementation such a `StyleGAN2`.
+
 
 # References
 
