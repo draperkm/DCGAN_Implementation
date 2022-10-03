@@ -8,7 +8,7 @@ Generative Adversarial Networks (GANs) are models capable of generating specific
 
 <img width="954" alt="Screenshot 2022-08-30 at 12 58 46" src="https://user-images.githubusercontent.com/80494835/193601253-451f0709-ffed-4bd5-8773-650dd708b7b2.png">
 
-The goal is to train the Generator and the Discriminator jointly in a adversarial training \cite{https://doi.org/10.48550/arxiv.1406.2661}:
+The goal is to train the Generator and the Discriminator jointly in a adversarial training:
 
 $$
     \min_{\theta_g} \max_{\theta_d} [E_{x \sim p_{data}} \log D_{\theta_d}(x)+E_{z \sim p_{z}}\log (1-D_{\theta_d}(G_{\theta_d}(z)))]
