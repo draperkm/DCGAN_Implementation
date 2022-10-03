@@ -220,16 +220,32 @@ We have trained this DCGAN network for 10 - 30 - 60 epochs. The results that we 
 
 ## The original data set
 
+The data set has been retrieved on Kaggle: https://www.kaggle.com/datasets/gasgallo/faces-data. Here some examples extracted from the data set:
+
+<p align="center">
+<img width="700" alt="Screenshot 2022-10-03 at 18 50 17" src="https://user-images.githubusercontent.com/80494835/193644756-e50e2195-4e86-40a7-92be-6d2cc053ecc6.png">
+</p>
+
 ## Results
+
 
 The program created next will generate faces similar to these:
 
+<p align="center">
+<img width="1231" alt="Screenshot 2022-10-03 at 18 34 59" src="https://user-images.githubusercontent.com/80494835/193643851-268c4b61-9c68-4ea6-8aa1-498a4fef87e7.png">
+</p>
+
 It is evident that this type of implementation can allow us to reach only a certain level of quality in the generated images, but we demonstrated how it is possible to build and train a GAN on a simple laptop Machine with the help of Google Colab. To produce images of a higher quality (and resolution) we will have to take a look at different GAN implementation such a `StyleGAN2`.
+
+<img width="1140" alt="Screenshot 2022-10-03 at 18 40 42" src="https://user-images.githubusercontent.com/80494835/193644187-77f33e20-7cc8-4d41-bf00-8d3f3c445aaf.png">
+
 
 
 # References
 
+
 1- https://arxiv.org/abs/1511.06434 DCGAN
+
 
 2- https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html
 
