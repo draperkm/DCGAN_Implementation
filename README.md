@@ -220,16 +220,22 @@ We have trained this DCGAN network for 10 - 30 - 60 epochs. The results that we 
 
 ## The original data set
 
+<img width="1188" alt="Screenshot 2022-10-03 at 18 43 27" src="https://user-images.githubusercontent.com/80494835/193643709-7583aade-7712-4a11-8a1a-530f1ac495d5.png">
+
 ## Results
 
 The program created next will generate faces similar to these:
+
+<img width="1231" alt="Screenshot 2022-10-03 at 18 34 59" src="https://user-images.githubusercontent.com/80494835/193643851-268c4b61-9c68-4ea6-8aa1-498a4fef87e7.png">
 
 It is evident that this type of implementation can allow us to reach only a certain level of quality in the generated images, but we demonstrated how it is possible to build and train a GAN on a simple laptop Machine with the help of Google Colab. To produce images of a higher quality (and resolution) we will have to take a look at different GAN implementation such a `StyleGAN2`.
 
 
 # References
 
+
 1- https://arxiv.org/abs/1511.06434 DCGAN
+
 
 2- https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html
 
