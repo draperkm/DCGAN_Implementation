@@ -218,6 +218,10 @@ https://github.com/draperkm/Frameworks_notes/blob/main/Visualising_Tensors_PyTor
 
 We have trained this DCGAN network for 10 - 30 - 60 epochs. The results that we can obtain from this implementation have plateaud after 30 epochs, as we can not notice significative differences between the two final results. 
 
+## The original data set
+
+## Results
+
 The program created next will generate faces similar to these:
 
 It is evident that this type of implementation can allow us to reach only a certain level of quality in the generated images, but we demonstrated how it is possible to build and train a GAN on a simple laptop Machine with the help of Google Colab. To produce images of a higher quality (and resolution) we will have to take a look at different GAN implementation such a `StyleGAN2`.
