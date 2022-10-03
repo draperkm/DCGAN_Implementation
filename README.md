@@ -52,13 +52,11 @@ end **for**
 
 We can observe that the training loop uses two version of th ebinary cross entropy and maximise the cost function to update the discriminator parameters, while it minimise the cost function when updating the generator's parameters.
      
-
-# Types of different GANs and DCGANs
-
+## Different types of GANs
 
 https://towardsdatascience.com/gan-objective-functions-gans-and-their-variations-ad77340bce3c
 
-## DCGAN
+# DCGANs
 
 DCGANs are composed by a pair of:
 
